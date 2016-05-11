@@ -2,6 +2,8 @@
 支持iOS7及以上级版本，支持二维码和条形码。
 AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间完成。
 
+已经封装成CKScanHelper，只有复制这两个文件，就可以快速实现扫描。
+
 ###1.包含头文件：AVFoundation/AVFoundation.h
 ###2.引用协议代理： AVCaptureMetadataOutputObjectsDelegate
 
