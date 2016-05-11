@@ -1,6 +1,6 @@
 //
 //  CKScanManager.m
-//  IOS7使用原生API进行二维码和条形码的扫描
+//  iOS7使用原生API进行二维码和条形码的扫描
 //
 //  Created by 思久科技 on 16/5/6.
 //  Copyright © 2016年 Seejoys. All rights reserved.
@@ -9,12 +9,13 @@
 #import "CKScanHelper.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface CKScanHelper() <AVCaptureMetadataOutputObjectsDelegate>{
-    AVCaptureSession *_session;//输入输出的中间桥梁
-    AVCaptureVideoPreviewLayer *_layer;//页面图层
-    AVCaptureMetadataOutput *_output;
-    
-    UIView *_superView;
+@interface CKScanHelper() <AVCaptureMetadataOutputObjectsDelegate>
+{
+    AVCaptureSession *_session;             //输入输出的中间桥梁
+    AVCaptureVideoPreviewLayer *_layer;     //捕捉视频预览层
+    AVCaptureMetadataOutput *_output;       //捕获元数据输出
+    AVCaptureDeviceInput *_input;           //采集设备输入
+    UIView *_superView;                     //图层的父类
 }
 
 @end
@@ -34,7 +35,8 @@
 }
 
 //初始化-单例，只调用一次
-- (id)init {
+- (id)init
+{
     self = [super init];
     if (self) {
         //初始化链接对象
@@ -47,8 +49,8 @@
             //获取摄像设备
             AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
             //创建输入流
-            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-            [_session addInput:input];
+            _input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+            [_session addInput:_input];
             
             //创建输出流
             _output = [[AVCaptureMetadataOutput alloc]init];
@@ -61,16 +63,17 @@
                                             AVMetadataObjectTypeEAN8Code,
                                             AVMetadataObjectTypeCode128Code];
         }
-        
         _layer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
         _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
     }
     return self;
 }
 
+//销毁对象
 - (void)dealloc
 {
-    
+    _scanView = nil;
+    _scanBlock = nil;
 }
 
 #pragma mark - 方法
@@ -84,16 +87,25 @@
     [_session stopRunning];
 }
 
+/**
+ *  显示图层
+ *
+ *  @param superView 需要在哪个View显示
+ */
 - (void)showLayer:(UIView *)superView {
     _superView = superView;
     _layer.frame = superView.layer.frame;
     [superView.layer insertSublayer:_layer atIndex:0];
 }
 
-//CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域的高/屏幕的高，扫描的区域的宽/屏幕的宽）
+/**
+ *  设置扫描范围区域 CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域的高/屏幕的高，扫描的区域的宽/屏幕的宽）
+ *
+ *  @param scanRect 扫描范围
+ *  @param scanView 扫描框
+ */
 - (void)setScanningRect:(CGRect)scanRect scanView:(UIView *)scanView
 {
-    
     CGFloat x,y,width,height;
     
     x = scanRect.origin.y / _layer.frame.size.height;
@@ -112,20 +124,16 @@
     }
 }
 
-#pragma mark - AVCaptureMetadataOutputObjectsDelegate
+#pragma mark - AVCaptureMetadataOutputObjects Delegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if (metadataObjects.count > 0) {
         //[_session stopRunning];
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex :0];
         if (self.scanBlock) {
-            self.scanBlock(YES, metadataObject.stringValue);
+            self.scanBlock(metadataObject.stringValue);
         }
         //输出扫描字符串
         NSLog(@"%@",metadataObject.stringValue);
-    }else{
-        if (self.scanBlock) {
-            self.scanBlock(NO, nil);
-        }
     }
 }
 
