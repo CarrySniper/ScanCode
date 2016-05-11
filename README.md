@@ -2,10 +2,10 @@
 支持iOS7及以上级版本，支持二维码和条形码。
 AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间完成。
 
-1.包含头文件：AVFoundation/AVFoundation.h
-2.引用协议代理： AVCaptureMetadataOutputObjectsDelegate
+###1.包含头文件：AVFoundation/AVFoundation.h
+###2.引用协议代理： AVCaptureMetadataOutputObjectsDelegate
 
-3.声明对象
+###3.声明对象
 ```
 AVCaptureSession *_session;             //输入输出的中间桥梁
 AVCaptureVideoPreviewLayer *_layer;     //捕捉视频预览层
