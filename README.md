@@ -4,6 +4,28 @@ AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间�
 
 已经封装成CKScanHelper，只有复制这两个文件，就可以快速实现扫描。
 
+###使用方法
+```
+[[CKScanHelper manager] showLayer:self.view];
+
+CGSize windowSize = [UIScreen mainScreen].bounds.size;
+CGSize scanSize = CGSizeMake(windowSize.width*3/4, windowSize.width*3/4);
+CGRect scanRect = CGRectMake((windowSize.width-scanSize.width)/2, 30, scanSize.width, scanSize.height);
+
+UIView *scanRectView = [UIView new];
+scanRectView.layer.borderColor = [UIColor redColor].CGColor;
+scanRectView.layer.borderWidth = 1;
+
+[[CKScanHelper manager] setScanningRect:scanRect scanView:scanRectView];
+
+[[CKScanHelper manager] setScanBlock:^(NSString *scanResult){
+     NSLog(@"%@", scanResult);
+}];
+
+[[CKScanHelper manager] startRunning];//开始扫描
+
+[[CKScanHelper manager] stopRunning];//结束扫描
+```
 ###1.包含头文件：AVFoundation/AVFoundation.h
 ###2.引用协议代理： AVCaptureMetadataOutputObjectsDelegate
 
@@ -100,26 +122,4 @@ CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域
     _layer.frame = superView.layer.frame;
     [superView.layer insertSublayer:_layer atIndex:0];
 }
-```
-###9.使用方法
-```
-[[CKScanHelper manager] showLayer:self.view];
-
-CGSize windowSize = [UIScreen mainScreen].bounds.size;
-CGSize scanSize = CGSizeMake(windowSize.width*3/4, windowSize.width*3/4);
-CGRect scanRect = CGRectMake((windowSize.width-scanSize.width)/2, 30, scanSize.width, scanSize.height);
-
-UIView *scanRectView = [UIView new];
-scanRectView.layer.borderColor = [UIColor redColor].CGColor;
-scanRectView.layer.borderWidth = 1;
-
-[[CKScanHelper manager] setScanningRect:scanRect scanView:scanRectView];
-
-[[CKScanHelper manager] setScanBlock:^(NSString *scanResult){
-     NSLog(@"%@", scanResult);
-}];
-
-[[CKScanHelper manager] startRunning];//开始扫描
-
-[[CKScanHelper manager] stopRunning];//结束扫描
 ```
