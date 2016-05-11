@@ -13,7 +13,7 @@ AVCaptureMetadataOutput *_output;       //捕获元数据输出
 AVCaptureDeviceInput *_input;           //采集设备输入
 UIView *_superView;                     //图层的父类
 ```
-4.实例化对象
+###4.实例化对象
 ```
 初始化链接对象
 _session = [[AVCaptureSession alloc]init];
@@ -42,7 +42,7 @@ AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTyp
 _layer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
 _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
 ```
-5.实现扫描代理方法 成功输出
+###5.实现扫描代理方法 成功输出
 ```
 #pragma mark - AVCaptureMetadataOutputObjects Delegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
@@ -57,7 +57,7 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
     }
 }
 ```
-6.开始结束扫描
+###6.开始结束扫描
 ```
 - (void)startRunning {
     //开始捕获
@@ -69,7 +69,7 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
     [_session stopRunning];
 }
 ```
-7.优化扫描区域
+###7.优化扫描区域
 ```
 //CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域的高/屏幕的高，扫描的区域的宽/屏幕的宽）
 - (void)setScanningRect:(CGRect)scanRect scanView:(UIView *)scanView
@@ -91,7 +91,7 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
     }
 }
 ```
-8.添加显示图层
+###8.添加显示图层
 ```
 - (void)showLayer:(UIView *)superView {
     _superView = superView;
@@ -99,7 +99,7 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
     [superView.layer insertSublayer:_layer atIndex:0];
 }
 ```
-9.使用方法
+###9.使用方法
 ```
 [[CKScanHelper manager] showLayer:self.view];
 
