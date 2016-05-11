@@ -70,8 +70,8 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
 }
 ```
 ###7.优化扫描区域
+CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域的高/屏幕的高，扫描的区域的宽/屏幕的宽）
 ```
-//CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域的高/屏幕的高，扫描的区域的宽/屏幕的宽）
 - (void)setScanningRect:(CGRect)scanRect scanView:(UIView *)scanView
 {
     CGFloat x,y,width,height;
