@@ -1,23 +1,23 @@
 # Sacn-QRCode-BarCode
 支持iOS7及以上级版本，支持二维码和条形码。
-
 AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间完成。
 
 1.包含头文件：#import <AVFoundation/AVFoundation.h>
 2.引用协议代理： AVCaptureMetadataOutputObjectsDelegate
 
 3.声明对象
-
-    AVCaptureSession *_session;             //输入输出的中间桥梁
-    AVCaptureVideoPreviewLayer *_layer;     //捕捉视频预览层
-    AVCaptureMetadataOutput *_output;       //捕获元数据输出
-    AVCaptureDeviceInput *_input;           //采集设备输入
-    UIView *_superView;                     //图层的父类
-
+```
+AVCaptureSession *_session;             //输入输出的中间桥梁
+AVCaptureVideoPreviewLayer *_layer;     //捕捉视频预览层
+AVCaptureMetadataOutput *_output;       //捕获元数据输出
+AVCaptureDeviceInput *_input;           //采集设备输入
+UIView *_superView;                     //图层的父类
+```
 4.实例化对象
-//初始化链接对象
+```
+初始化链接对象
 _session = [[AVCaptureSession alloc]init];
-//高质量采集率
+高质量采集率
 [_session setSessionPreset:AVCaptureSessionPresetHigh];
 
 // 避免模拟器运行崩溃
@@ -41,9 +41,9 @@ AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTyp
         }
 _layer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
 _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
-
+```
 5.实现扫描代理方法 成功输出
-
+```
 #pragma mark - AVCaptureMetadataOutputObjects Delegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if (metadataObjects.count > 0) {
@@ -56,8 +56,9 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
         NSLog(@"%@",metadataObject.stringValue);
     }
 }
-
+```
 6.开始结束扫描
+```
 - (void)startRunning {
     //开始捕获
     [_session startRunning];
@@ -67,9 +68,9 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
     //停止捕获
     [_session stopRunning];
 }
-
+```
 7.优化扫描区域
-
+```
 //CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域的高/屏幕的高，扫描的区域的宽/屏幕的宽）
 - (void)setScanningRect:(CGRect)scanRect scanView:(UIView *)scanView
 {
@@ -89,16 +90,17 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
         }
     }
 }
-
+```
 8.添加显示图层
-
+```
 - (void)showLayer:(UIView *)superView {
     _superView = superView;
     _layer.frame = superView.layer.frame;
     [superView.layer insertSublayer:_layer atIndex:0];
 }
-
-10.使用方法
+```
+9.使用方法
+```
 [[CKScanHelper manager] showLayer:self.view];
 
 CGSize windowSize = [UIScreen mainScreen].bounds.size;
@@ -118,3 +120,4 @@ scanRectView.layer.borderWidth = 1;
 [[CKScanHelper manager] startRunning];//开始扫描
 
 [[CKScanHelper manager] stopRunning];//结束扫描
+```
