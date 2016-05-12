@@ -4,6 +4,8 @@ AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间�
 
 已经封装成CKScanHelper，只有复制这两个文件到项目，5个方法就可以快速实现扫描。不需要使用第三方扫描，第三方文件多，配置麻烦，还有版本限制，32位、64位区分。
 
+百度经验http://jingyan.baidu.com/article/eb9f7b6d7bc5ba869264e863.html
+
 ###使用方法
 ```
 //扫描框定义（可不要，全屏扫描）
