@@ -41,5 +41,14 @@
     <!-- iOS10 相机权限 -->
     <key>NSCameraUsageDescription</key>
     <string>cameraDesciption</string>
+    <!-- iOS10 通信录权限 -->
+    <key>NSContactsUsageDescription</key>
+    <string>contactsDesciption</string>
+    <!-- iOS10 麦克风权限 -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>microphoneDesciption</string>
+    <!-- iOS10 图片相册权限 -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>photoLibraryDesciption</string>
 </dict>
 </plist>
