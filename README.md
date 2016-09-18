@@ -115,7 +115,7 @@ CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域
     width = scanRect.size.height / _layer.frame.size.height;
     height = scanRect.size.width / _layer.frame.size.width;
     
-    _output.rectOfInterest = CGRectMake(x, x, width, height);
+    _output.rectOfInterest = CGRectMake(x, y, width, height);
     
     self.scanView = scanView;
     if (self.scanView) {
