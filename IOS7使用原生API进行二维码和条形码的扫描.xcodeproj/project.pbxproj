@@ -115,6 +115,7 @@
 				TargetAttributes = {
 					524690FE1CDC4CFF0004618B = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = LV9N6Q8MDS;
 					};
 				};
 			};
@@ -269,6 +270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LV9N6Q8MDS;
 				INFOPLIST_FILE = "IOS7使用原生API进行二维码和条形码的扫描/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seejoys.iOS7-Scan";
@@ -280,6 +282,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LV9N6Q8MDS;
 				INFOPLIST_FILE = "IOS7使用原生API进行二维码和条形码的扫描/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seejoys.iOS7-Scan";

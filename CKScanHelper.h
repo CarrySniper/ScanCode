@@ -6,6 +6,18 @@
 //  Copyright © 2016年 Seejoys. All rights reserved.
 //
 
+// FIXME:iOS10权限
+/**
+ <key>NSCameraUsageDescription</key>
+ <string>cameraDesciption</string>
+ <key>NSContactsUsageDescription</key>
+ <string>contactsDesciption</string>
+ <key>NSMicrophoneUsageDescription</key>
+ <string>microphoneDesciption</string>
+ <key>NSPhotoLibraryUsageDescription</key>
+ <string>photoLibraryDesciption</string>
+ */
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -20,12 +32,12 @@ typedef void(^CKScanSuccessBlock)(NSString *scanResult);
 
 @property (nonatomic, copy) CKScanSuccessBlock scanBlock;
 
+- (void)showLayer:(UIView *)viewContainer;
+
+- (void)setScanningRect:(CGRect)scanRect scanView:(UIView *)scanView;
+
 - (void)startRunning;
 
 - (void)stopRunning;
-
-- (void)showLayer:(UIView *)superView;
-
-- (void)setScanningRect:(CGRect)scanRect scanView:(UIView *)scanView;
 
 @end
