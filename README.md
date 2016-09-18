@@ -1,12 +1,12 @@
 # Sacn-QRCode-BarCode
-支持iOS7及以上级版本，支持二维码和条形码。
-AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间完成。
+支持iOS7及以上级版本，支持二维码和条形码。<br>
+适配iOS10，info.plist文件添加相机权限Privacy - Camera Usage Description<br>
+
+AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间完成。<br>
 
 已经封装成CKScanHelper，只有复制这两个文件到项目，5个方法就可以快速实现扫描。不需要使用第三方扫描，第三方文件多，配置麻烦，还有版本限制，32位、64位区分。
 
 百度经验http://jingyan.baidu.com/article/eb9f7b6d7bc5ba869264e863.html
-
-适配iOS10
 
 ###使用方法
 ```
