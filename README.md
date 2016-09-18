@@ -6,6 +6,8 @@ AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间�
 
 百度经验http://jingyan.baidu.com/article/eb9f7b6d7bc5ba869264e863.html
 
+适配iOS10
+
 ###使用方法
 ```
 //扫描框定义（可不要，全屏扫描）
@@ -39,32 +41,34 @@ UIView *_superView;                     //图层的父类
 ```
 ###4.实例化对象
 ```
-初始化链接对象
-_session = [[AVCaptureSession alloc]init];
-高质量采集率
-[_session setSessionPreset:AVCaptureSessionPresetHigh];
-
-// 避免模拟器运行崩溃
-if(!TARGET_IPHONE_SIMULATOR) {
-//获取摄像设备
-AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-     //创建输入流
-     _input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-     [_session addInput:_input];
-
-     //创建输出流
-     _output = [[AVCaptureMetadataOutput alloc]init];
-     //设置代理 在主线程里刷新
-     [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-     [_session addOutput:_output];
-     //设置扫码支持的编码格式(如下设置条形码和二维码兼容)
-     _output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,
-                                     AVMetadataObjectTypeEAN13Code,
-                                     AVMetadataObjectTypeEAN8Code,
-                                     AVMetadataObjectTypeCode128Code];
-        }
-_layer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-_layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
+     //初始化链接对象
+     _session = [[AVCaptureSession alloc]init];
+     //高质量采集率
+     [_session setSessionPreset:AVCaptureSessionPresetHigh];
+        
+     // FIXME: 避免模拟器运行崩溃
+     if(!TARGET_IPHONE_SIMULATOR) {
+          //获取摄像设备
+          AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+          //创建输入流
+          _input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+          [_session addInput:_input];
+            
+          //创建输出流
+          _output = [[AVCaptureMetadataOutput alloc]init];
+          //设置代理 在主线程里刷新
+          [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+          [_session addOutput:_output];
+          //设置扫码支持的编码格式(如下设置条形码和二维码兼容)
+            _output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,
+                                            AVMetadataObjectTypeEAN13Code,
+                                            AVMetadataObjectTypeEAN8Code,
+                                            AVMetadataObjectTypeCode128Code];
+            
+          // 要在addOutput之后，否则iOS10会崩溃
+          _layer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
+          _layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+     }
 ```
 ###5.实现扫描代理方法 成功输出
 ```
@@ -83,14 +87,20 @@ _layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
 ```
 ###6.开始结束扫描
 ```
+#pragma mark 开始捕获
 - (void)startRunning {
-    //开始捕获
-    [_session startRunning];
+    // FIXME: 避免模拟器运行崩溃
+    if(!TARGET_IPHONE_SIMULATOR) {
+        [_session startRunning];
+    }
+    
 }
-
+#pragma mark 停止捕获
 - (void)stopRunning {
-    //停止捕获
-    [_session stopRunning];
+    // FIXME: 避免模拟器运行崩溃
+    if(!TARGET_IPHONE_SIMULATOR) {
+        [_session stopRunning];
+    }
 }
 ```
 ###7.优化扫描区域
@@ -99,27 +109,29 @@ CGRectMake（y的起点/屏幕的高，x的起点/屏幕的宽，扫描的区域
 - (void)setScanningRect:(CGRect)scanRect scanView:(UIView *)scanView
 {
     CGFloat x,y,width,height;
-
+    
     x = scanRect.origin.y / _layer.frame.size.height;
     y = scanRect.origin.x / _layer.frame.size.width;
     width = scanRect.size.height / _layer.frame.size.height;
     height = scanRect.size.width / _layer.frame.size.width;
+    
     _output.rectOfInterest = CGRectMake(x, x, width, height);
-
+    
     self.scanView = scanView;
     if (self.scanView) {
         self.scanView.frame = scanRect;
-        if (_superView) {
-            [_superView addSubview:self.scanView];
+        if (_viewContainer) {
+            [_viewContainer addSubview:self.scanView];
         }
     }
 }
 ```
 ###8.添加显示图层
 ```
-- (void)showLayer:(UIView *)superView {
-    _superView = superView;
-    _layer.frame = superView.layer.frame;
-    [superView.layer insertSublayer:_layer atIndex:0];
+- (void)showLayer:(UIView *)viewContainer
+{
+    _viewContainer = viewContainer;
+    _layer.frame = _viewContainer.layer.frame;
+    [_viewContainer.layer insertSublayer:_layer atIndex:0];
 }
 ```
