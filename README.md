@@ -46,7 +46,7 @@ UIView *_superView;                     //图层的父类
      //高质量采集率
      [_session setSessionPreset:AVCaptureSessionPresetHigh];
         
-     // FIXME: 避免模拟器运行崩溃
+     // MARK: 避免模拟器运行崩溃
      if(!TARGET_IPHONE_SIMULATOR) {
           //获取摄像设备
           AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -89,7 +89,7 @@ UIView *_superView;                     //图层的父类
 ```
 #pragma mark 开始捕获
 - (void)startRunning {
-    // FIXME: 避免模拟器运行崩溃
+    // MARK: 避免模拟器运行崩溃
     if(!TARGET_IPHONE_SIMULATOR) {
         [_session startRunning];
     }
@@ -97,7 +97,7 @@ UIView *_superView;                     //图层的父类
 }
 #pragma mark 停止捕获
 - (void)stopRunning {
-    // FIXME: 避免模拟器运行崩溃
+    // MARK: 避免模拟器运行崩溃
     if(!TARGET_IPHONE_SIMULATOR) {
         [_session stopRunning];
     }
