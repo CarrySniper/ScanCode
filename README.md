@@ -1,6 +1,11 @@
 # Sacn-QRCode-BarCode
-支持iOS7及以上级版本，支持二维码和条形码。<br>
+支持iOS7及以上级版本，支持二维码和条形码。iOS8还支持DM码等，具体可以查看sdk<br>
 适配iOS10，info.plist文件添加相机权限Privacy - Camera Usage Description<br>
+
+部分测试结果表明，最好是允许使用相机的情况下再获取设备，否则device为nil，会崩溃。<br>
+```
+AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+```
 
 AVMetadataObject类，使用原生Api扫描和处理的效率非常高，瞬间完成。<br>
 
