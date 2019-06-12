@@ -3,10 +3,15 @@
 支持识别二维码、条形码DM码等，具体可以查看sdk。<br>
 适配iOS10，info.plist文件添加相机权限Privacy - Camera Usage Description<br>
 
-<img src="https://github.com/cjq002/ScanCode/raw/master/Media/demo.png" width="375">
-<img src="https://github.com/cjq002/ScanCode/raw/master/Media/demo1.png" width="375">
+<img src="https://github.com/cjq002/ScanCode/raw/master/Media/demo.png" width="300"><img src="https://github.com/cjq002/ScanCode/raw/master/Media/demo1.png" width="300">
 
-### 使用方法
+
+### 主要文件
+- CLScanCodeManeger 	二维码识别类
+- UIImage+CLQRCode 	    二维码生成类
+- CLScanAnimationView   扫描框视图类
+
+### 使用方法 在ViewController.m实现
 #### 1.包含头文件
 ```objc
 #import "CLScanCodeManeger.h"
@@ -37,8 +42,3 @@
   [[CLScanCodeManeger manager] stopScan];
 }
 ```
-
-### 其他
-CLScanCodeManeger 	二维码识别类
-UIImage+CLQRCode 	二维码生成类
-CLScanAnimationView 扫描框视图类
