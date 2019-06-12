@@ -17,9 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param text 二维码文本
  @param logo 中心logo图
+ @param tintColor 二维码颜色
  @return w二维码
  */
-+ (UIImage *)generateQRCodeWithText:(NSString *)text withLogo:(UIImage *_Nullable)logo;
++ (UIImage *)generateQRCodeWithText:(NSString *)text logo:(UIImage *_Nullable)logo tintColor:(UIColor *)tintColor;
 
 /**
  文字过滤转换成核心图像

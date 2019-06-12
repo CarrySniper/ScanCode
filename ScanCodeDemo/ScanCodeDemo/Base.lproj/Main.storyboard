@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="YhM-mE-VGZ"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="yw6-kW-qq8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIW-Hk-aTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -36,7 +36,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZD8-Eb-asx">
                                 <rect key="frame" x="149" y="505" width="77" height="30"/>
-                                <state key="normal" title="生成二维码"/>
+                                <state key="normal" title="生成二维码">
+                                    <color key="titleColor" red="0.8901960784313725" green="0.50588235294117645" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="generateButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mAW-vM-IzT"/>
                                 </connections>
@@ -62,7 +64,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="My3-1M-g45"/>
                                 </constraints>
-                                <state key="normal" title="扫一扫"/>
+                                <state key="normal" title="扫一扫">
+                                    <color key="titleColor" red="0.8901960784313725" green="0.50588235294117645" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="scanPageAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="67u-0E-o22"/>
                                 </connections>
@@ -78,6 +82,7 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hAW-Ut-WSV">
                                         <rect key="frame" x="100" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.89019607840000003" green="0.50588235290000005" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </switch>
                                 </subviews>
                             </stackView>
@@ -162,6 +167,7 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y9I-Oo-Wm2">
                                         <rect key="frame" x="84.5" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.89019607840000003" green="0.50588235290000005" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="torchDidChangeAction:" destination="msG-ZF-ak6" eventType="valueChanged" id="G8l-pN-7Sg"/>
                                         </connections>

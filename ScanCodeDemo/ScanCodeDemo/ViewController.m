@@ -30,7 +30,7 @@
 	
 	NSString *text = @"https://github.com/cjq002/ScanCode.git";
 	UIImage *logo = [UIImage imageNamed:@"avatar"];
-	self.imageView.image = [UIImage generateQRCodeWithText:text withLogo:logo];
+	self.imageView.image = [UIImage generateQRCodeWithText:text logo:logo tintColor:[UIColor colorWithRed:227.0/255 green:129.0/255 blue:31.0/255 alpha:1.0]];
 	
 	self.textField.text = text;
 }
@@ -41,7 +41,7 @@
 		NSLog(@"文本内容为空");
 		return;
 	}
-	self.imageView.image = [UIImage generateQRCodeWithText:self.textField.text withLogo:nil];
+	self.imageView.image = [UIImage generateQRCodeWithText:self.textField.text logo:nil tintColor:[UIColor colorWithRed:227.0/255 green:129.0/255 blue:31.0/255 alpha:1.0]];
 }
 
 - (IBAction)scanPageAction:(id)sender {
