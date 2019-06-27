@@ -21,7 +21,7 @@
  */
 + (UIImage *)generateQRCodeWithText:(NSString *)text logo:(UIImage *_Nullable)logo tintColor:(UIColor *)tintColor {
 	UIColor *backgroundColor = [UIColor whiteColor];
-	UIImage *qrImage = [UIImage generateImageWithText:text size:500 tintColor:tintColor backgroundColor:backgroundColor];
+	UIImage *qrImage = [UIImage generateImageWithText:text size:CGSizeMake(500, 500) tintColor:tintColor backgroundColor:backgroundColor];
 	return [UIImage drawQRImageWithImage:qrImage logo:logo borderColor:backgroundColor];
 }
 
@@ -34,9 +34,11 @@
  @param backgroundColor 背景颜色，一般以浅色为主，比tintColor浅，不然识别不出来
  @return 图像
  */
-+ (UIImage *)generateImageWithText:(NSString *)text size:(CGFloat)size tintColor:(UIColor *)tintColor backgroundColor:(UIColor *)backgroundColor {
++ (UIImage *)generateImageWithText:(NSString *)text size:(CGSize)size tintColor:(UIColor *)tintColor backgroundColor:(UIColor *)backgroundColor {
 	// 二维码滤镜
 	CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+	//过滤器恢复默认
+	[filter setDefaults];
 	// 设置二维码的纠错水平，越高纠错水平越高H:30%，可以污损的范围越大，中间加logo需要高容错率
 	[filter setValue:@"H" forKey:@"inputCorrectionLevel"];
 	// 将文本转为UTF8的数据，并设置给filter
@@ -54,13 +56,26 @@
 	// 生成处理
 	CIImage *colorCIImage = colorFilter.outputImage;
 	
-	// 转换size大小
-	CGFloat scale = size / colorCIImage.extent.size.width;
-	CIImage *scaleCIImage = [colorCIImage imageByApplyingTransform:CGAffineTransformMakeScale(scale, scale)];
+	/*
+	 // 转换size大小,这个转换感觉会卡主线程，在viewcontroller push显示的时候会卡一下
+	 CGFloat scale = size / colorCIImage.extent.size.width;
+	 CIImage *scaleCIImage = [colorCIImage imageByApplyingTransform:CGAffineTransformMakeScale(scale, scale)];
+	 // 转换成UIImage
+	 UIImage *qrImage = [UIImage imageWithCIImage:scaleCIImage];
+	 */
 	
-	// 转换成UIImage
-	UIImage *qrImage = [UIImage imageWithCIImage:scaleCIImage];
-	return qrImage;
+	// 绘制制定大小图片，性能比较好的
+	CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:colorCIImage fromRect:colorCIImage.extent];
+	UIGraphicsBeginImageContext(size);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+	CGContextScaleCTM(context, 1.0, -1.0);
+	CGContextDrawImage(context, CGContextGetClipBoundingBox(context), cgImage);
+	UIImage *codeImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	CGImageRelease(cgImage);
+	return codeImage;
 }
 
 /**

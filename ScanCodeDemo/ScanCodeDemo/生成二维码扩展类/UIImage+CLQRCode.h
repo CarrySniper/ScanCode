@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param backgroundColor 背景颜色，一般以浅色为主，比tintColor浅，不然识别不出来
  @return 图像
  */
-+ (UIImage *)generateImageWithText:(NSString *)text size:(CGFloat)size tintColor:(UIColor *)tintColor backgroundColor:(UIColor *)backgroundColor;
++ (UIImage *)generateImageWithText:(NSString *)text size:(CGSize)size tintColor:(UIColor *)tintColor backgroundColor:(UIColor *)backgroundColor;
 
 /**
  绘制二维码图片
