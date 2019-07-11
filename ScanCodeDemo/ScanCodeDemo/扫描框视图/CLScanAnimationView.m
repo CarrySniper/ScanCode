@@ -63,6 +63,7 @@
 
 //扫描动画
 - (CABasicAnimation *)moveAnimation {
+	[self layoutIfNeeded];
 	CGFloat height = self.scanLine.frame.size.height / 2;
 	CGPoint starPoint = CGPointMake(self.scanLine.center.x  , -height);
 	CGPoint endPoint = CGPointMake(self.scanLine.center.x, self.bounds.size.height - height);
