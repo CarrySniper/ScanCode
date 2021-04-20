@@ -28,7 +28,7 @@
 	// 导航栏不透明
 	self.navigationController.navigationBar.translucent = NO;
 	
-	NSString *text = @"https://github.com/cjq002/ScanCode.git";
+	NSString *text = @"https://github.com/CarrySniper/ScanCode.git";
 	UIImage *logo = [UIImage imageNamed:@"avatar"];
 	self.imageView.image = [UIImage generateQRCodeWithText:text logo:logo tintColor:[UIColor colorWithRed:227.0/255 green:129.0/255 blue:31.0/255 alpha:1.0]];
 	
